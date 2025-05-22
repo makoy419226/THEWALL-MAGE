@@ -1,0 +1,21 @@
+@charset 'UTF-8';
+
+// 1. Configuration
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// 2. Base stuff
+@import 'base/base';
+@import 'base/fonts';
+@import 'base/utils';
+
+// 3. Components
+@import 'components/components';
+@import 'components/header';
+@import 'components/footer';
+
+// 4. Page-specific styles
+@import 'pages/global';
+@import 'pages/home';
+@import 'pages/innerpage';
+@import 'pages/innerpagev2';

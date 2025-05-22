@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wall - FAQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        // Customizing Tailwind CSS to include specific colors from the provided CSS
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bodyBg: '#03293D', /* Dark blue background from provided CSS body */
+                        headerFooterBg: '#002a3f', /* Dark background for header/footer from provided CSS */
+                        accentBlue: '#00B8D9', /* Skyblue accent color from provided CSS */
+                        accentGold: '#FFD700', /* Gold arrow color from provided CSS */
+                        faqBorder: '#1E4E5F', /* FAQ item border color from provided CSS */
+                        textLight: '#ffffff', /* White text color from provided CSS */
+                        textMuted: '#ccc', /* Muted text color for answers from provided CSS */
+                        textGray: '#aaa', /* Gray text for footer links from provided CSS */
+                        // Adding Material Blue Palette (example shades)
+                        materialBlue500: '#2196F3',
+                        materialBlue700: '#1976D2',
+                        materialBlue900: '#0D47A1',
+                    },
+                    fontFamily: {
+                        rocGrotesk: ['roc-grotesk', 'sans-serif'], /* Font family from provided CSS */
+                        inter: ['Inter', 'sans-serif'], /* Fallback/additional font */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* General Body Styles */
+        body {
+           
+            background-color: var(--tw-colors-bodyBg);
+            color: var(--tw-colors-textLight);
+            font-family: var(--tw-font-rocGrotesk), sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex; /* Added for flex-grow on main */
+            flex-direction: column; /* Added for flex-grow on main */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            opacity: 0; /* Initially hidden for fade-in animation */
+            animation: fadeIn 1s ease-in-out forwards; /* Fade-in animation */
+        }
+
+        /* Keyframe for fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Header Styles */
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px 100px;
+            background-color: var(--tw-colors-headerFooterBg); /* Use defined color */
+            position: fixed; /* Changed from invalid 'top: 5px;' to fixed */
+            top: 50px; /* Position at the top */
+            right: 0; /* Position at the right */
+            width: 100%; /* Ensure it spans the full width */
+            z-index: 10;
+            height: 100px;
+        }
+
+        #header .brand img {
+            height: 200%; /* Upscaled height for header logo */
+            position: relative;
+            z-index: 1;
+            /* Ensure responsiveness for the logo */
+            max-width: 200%; /* Upscaled max-width for header logo */
+            height: auto; /* Keep auto to maintain aspect ratio unless explicitly told otherwise */
+        }
+
+        .menu-button {
+            position: absolute;
+            top: 40px; /* Adjusted to be within header bounds if possible, might need rework if header padding changes */
+            right: 0px;
+         
+            background-color: transparent; /* Changed to transparent */
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            z-index: 2;
+            width: 100px; /* Increased width for a bigger icon */
+            height: 100%; /* Adjusted to take full height of its container or a specific value if needed */
+            display: flex;
+            flex-direction: column; /* To center the image vertically */
+            align-items: center; /* To center the image horizontally */
+            justify-content: center; /* To center the image vertically */
+            outline: none; /* Removed outline on focus */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Added transition */
+        }
+
+        .menu-button:focus {
+            outline: none; /* Ensure outline is removed on focus */
+        }
+
+        .menu-button:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect for transparent background */
+            transform: scale(1.02); /* Slight scale effect on hover */
+        }
+
+        /* Class to hide the menu button */
+        .menu-button.hidden {
+            display: none;
+        }
+
+        /* Sidebar Menu Styles - ENLARGED */
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            right: -100vw; /* Hidden by default, slides in from off-screen */
+            width: min(90vw, 600px); /* INCREASED: Larger width, up to 600px */
+            height: 100%;
+            background-color: var(--tw-colors-materialBlue700); /* Changed to darker Material Blue */
+            z-index: 1000; /* Increased z-index to bring it to the top */
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            transition: right 0.3s ease-in-out; /* Smooth slide transition */
+            padding: 0; /* Remove initial padding to control internal sections */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            justify-content: flex-start; /* Align content to the top */
+        }
+
+        .sidebar-menu.open {
+            right: 0; /* Slide in */
+        }
+
+        /* Sidebar Overlay for outside click */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 999; /* Below sidebar, above everything else */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .sidebar-overlay.active-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Vertically align items */
+            width: 100%;
+            padding: 30px 40px; /* INCREASED: Larger padding */
+            box-sizing: border-box;
+            font-size: 1.2em; /* INCREASED: Larger font size */
+            color: var(--tw-colors-textMuted);
+            position: relative; /* For positioning close button */
+            background-color: var(--tw-colors-materialBlue900); /* Darker Material Blue for header */
+        }
+
+        .sidebar-design-text, .sidebar-shale-text {
+            font-weight: bold;
+            color: var(--tw-colors-textLight); /* Assuming these are prominent */
+            font-size: 1.3em; /* INCREASED: Larger text */
+        }
+
+        .sidebar-close-button {
+            position: absolute;
+            top: 50px; /* INCREASED: More space from top */
+            right: 25px; /* INCREASED: More space from right */
+            background: none;
+            border: none;
+            font-size: 3.5rem; /* INCREASED: Much bigger close button */
+            color: var(--tw-colors-textLight);
+            cursor: pointer;
+            transition: color 0.5s ease;
+            line-height: 5; /* Prevent extra space */
+        }
+
+        .sidebar-close-button:hover {
+            color: var(--tw-colors-accentBlue);
+        }
+
+        .sidebar-brand-section {
+            text-align: left;
+            margin-top: 40px; /* INCREASED: More space after header */
+            margin-bottom: 60px; /* INCREASED: More space before nav links */
+            width: 50%;
+            padding: 0 40px; /* INCREASED: More horizontal padding */
+            box-sizing: border-box;
+        }
+
+        .sidebar-brand-section .sidebar-logo {
+            height: 120px; /* INCREASED: Much bigger logo */
+            width: auto;
+            margin: 10 auto; /* Center the logo */
+            display: relative;
+            top: 200px; /* INCREASED: More space above */
+        }
+
+        .sidebar-brand-section .sidebar-menu-text {
+            display: block;
+            font-size: 3.5rem; /* INCREASED: Much larger "MENU" text */
+            font-weight: bold;
+            color: var(--tw-colors-accentBlue); /* Use accent color for "MENU" */
+            margin-top: 20px; /* INCREASED: More space above */
+            letter-spacing: 0.1em; /* Added letter spacing for better appearance */
+        }
+
+        .sidebar-menu ul {
+            list-style: none;
+            padding: 30px 40px; /* INCREASED: More padding for list items */
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .sidebar-menu ul li {
+            margin-bottom: 25px; /* INCREASED: More space between menu items */
+            text-align: center; /* Center menu items */
+        }
+
+        .sidebar-menu ul li a {
+            color: var(--tw-colors-textLight);
+            text-decoration: none;
+            font-size: 1.2rem; /* INCREASED: Much larger menu items */
+            font-weight: bold;
+            transition: color 0.2s ease;
+            display: block; /* Make the whole area clickable */
+            padding: 10px 0; /* INCREASED: Larger clickable area */
+            letter-spacing: 0.05em; /* Added letter spacing */
+        }
+
+        .sidebar-menu ul li a:hover {
+            color: var(--tw-colors-materialBlue500); /* Material blue on hover */
+        }
+
+        /* FAQ Section Styles */
+        main {
+            flex-grow: 1; /* Allows main content to take available space */
+        }
+
+        .faq-section {
+            padding: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-top: 150px; /* Increased to accommodate fixed header */
+            position: relative;
+            z-index: 0;
+        }
+
+        .faq-section h1 {
+            font-size: 90px;
+            font-weight: bold;
+            margin-bottom: 0px;
+            line-height: 1;
+            position: relative;
+            z-index: 2;
+            text-align: left;
+        }
+
+        .faq-section h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 0px;
+            margin-bottom: 20px;
+            color: var(--tw-colors-textLight);
+            position: relative;
+            z-index: 2;
+            text-align: left;
+        }
+
+        .faq-shadow {
+            position: absolute;
+            top: 90px; /* Adjusted to match padding-top of faq-section */
+            left: 90px;
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        .faq-shadow img {
+            height: 120px;
+            width: auto;
+        }
+
+        .faq-section > p {
+            position: relative;
+            z-index: 2;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--tw-colors-faqBorder); /* Border color */
+            padding: 15px 0;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease-in-out; /* Keep transition */
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item:hover {
+            background-color: rgba(255, 255, 255, 0.05); /* Subtle background on hover */
+            transform: translateX(5px); /* Slide effect on hover */
+        }
+
+        .faq-item:hover .question-header {
+            color: var(--tw-colors-accentBlue); /* Hover color */
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            font-size: 1.25rem; /* Equivalent to text-xl */
+            font-weight: 600; /* Semi-bold */
+        }
+
+        .question {
+            font-weight: normal;
+        }
+
+        .arrow {
+            transition: transform 0.3s ease;
+            width: 20px; /* Explicit width for image */
+            height: 20px; /* Explicit height for image */
+            display: flex; /* For centering the image */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .arrow img {
+            width: 100%; /* Ensure image takes full width of .arrow container */
+            height: 100%; /* Ensure image takes full height of .arrow container */
+            object-fit: contain; /* Ensure the image scales down to fit without cropping */
+        }
+
+        .answer {
+            max-height: 0; /* Initially hide the answer */
+            opacity: 0; /* Initially hide the answer text */
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transition for height and opacity */
+            padding: 0 0 0 0; /* Horizontal padding, no vertical when collapsed */
+            overflow: hidden; /* Hide overflowing content during transition */
+            color: var(--tw-colors-textMuted); /* Applied muted color to answer */
+        }
+
+        .faq-item.active .answer {
+            max-height: 200px; /* Max height when active (adjust as needed) */
+            opacity: 1; /* Show the answer text */
+            padding-top: 10px; /* Add padding when expanded */
+            padding-bottom: 20px; /* Add padding when expanded */
+        }
+
+        .faq-item.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .contact-section {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+
+        }
+
+        .contact-section p {
+            font-style: normal;
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: bold; /* Added bold from image */
+            color: var(--tw-colors-textLight); /* Ensure text color consistency */
+        }
+
+        .contact-button {
+            background-color: #008C9E;/* Button color */
+            border: 200px;
+            color: var(--tw-colors-textLight);
+            padding: 15px 30px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1em;
+            text-transform: uppercase;
+            border-radius: 200px; /* Full rounded corners as per original request */
+            box-shadow: 0 4px 6px rgba(39, 91, 185, 0.1); /* Subtle shadow */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .contact-button:hover {
+            background-color: #008C9E; /* Slightly darker blue on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--tw-colors-headerFooterBg); /* Footer background color */
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8em;
+            position: relative;
+            z-index: 10;
+            color: rgba(255, 255, 255, 0.7); /* Muted text color */
+        }
+
+        #footer .footer-brand img {
+            height: 50px; /* Original height for footer logo */
+            margin-bottom: 10px; /* If needed, or remove if alignment is handled by flex */
+            position: relative;
+            z-index: 1;
+            /* Ensure responsiveness */
+            max-width: 100%; /* Original max-width for footer logo */
+            /* height: auto; Removed to keep consistent height, adjust if aspect ratio distortion is an issue */
+        }
+
+        .social-media-follow {
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            color: var(--tw-colors-textLight); /* Ensure visibility */
+        }
+
+        .social-links .nav-item { /* This class seems unused in the HTML, .social-links li is used instead */
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .social-links li { /* Targeting li elements directly as they are used for social icons */
+             display: inline-block;
+             margin-right: 10px; /* Spacing between icons */
+        }
+        .social-links li:last-child {
+            margin-right: 0; /* No margin for the last icon */
+        }
+
+
+        .social-links .nav-link { /* This class seems unused in the HTML, a tags within li are targeted */
+            color: var(--tw-colors-textLight);
+            font-size: 1.5em;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.2s ease; /* Added transition */
+        }
+         .social-links a { /* Targeting a tags directly */
+            color: var(--tw-colors-textLight);
+            font-size: 1.5em;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .social-links a:hover { /* Targeting a tags directly */
+            color: var(--tw-colors-accentBlue); /* Blue on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+
+        #footer .text-gray-400 { /* Changed from text-gray-2 */
+            color: var(--tw-colors-textMuted);
+        }
+
+        #footer .text-gray-500 { /* Changed from text-gray */
+            color: var(--tw-colors-textGray);
+        }
+
+        #footer .text-xs { /* Changed from fs-14px */
+            font-size: 0.75rem; /* Equivalent to 12px, adjust if 14px is strictly needed */
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) {
+            #header {
+                padding: 20px 20px; /* Reduced padding for mobile header */
+                height: 80px; /* Adjust header height for mobile */
+                top: 20px; /* Adjust top position for mobile */
+            }
+
+            #header .brand img {
+                 height: 100%; /* Adjust logo size if necessary */
+                 max-width: 150px;
+            }
+
+            .menu-button {
+                width: 60px; /* Adjust menu button size for mobile */
+                height: 60px; /* Adjust menu button size for mobile */
+                top: 10px; /* Adjust position */
+                right: 10px;
+            }
+             .menu-button img {
+                max-height: 30px; /* Ensure icon inside button is reasonably sized */
+            }
+
+
+            .sidebar-menu {
+                width: 95vw; /* Almost full width on mobile */
+            }
+            
+            .sidebar-brand-section .sidebar-menu-text {
+                font-size: 2.8rem; /* Slightly smaller on mobile */
+            }
+            
+            .sidebar-menu ul li a {
+                font-size: 2.0rem; /* Smaller menu items on mobile */
+            }
+            
+            .sidebar-header {
+                padding: 20px 25px; /* Adjust padding for mobile */
+            }
+
+            .faq-section {
+                padding: 20px;
+                padding-top: 120px; /* Adjust for smaller fixed header */
+            }
+            .faq-section h1 {
+                font-size: 48px; /* Smaller heading for mobile */
+            }
+            .faq-section h2 {
+                font-size: 20px; /* Smaller subheading */
+            }
+            .faq-shadow {
+                top: 120px; /* Match faq-section padding-top */
+                left: 20px;
+            }
+            .faq-shadow img {
+                height: 100px; /* Smaller shadow image */
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            #footer .footer-brand {
+                margin-bottom: 20px; /* Space below brand on mobile */
+            }
+            #footer .footer-brand img {
+                height: 40px; /* Adjust footer logo size */
+            }
+            .social-media-follow {
+                margin-bottom: 5px; /* Adjust spacing */
+            }
+            #footer .text-right {
+                text-align: center; /* Center copyright text on mobile */
+                margin-top: 20px; /* Space above copyright */
+            }
+             #footer .text-xs {
+                font-size: 0.7rem; /* Slightly smaller copyright text */
+            }
+        }
+         @media (max-width: 480px) {
+            .faq-section h1 {
+                font-size: 36px;
+            }
+            .faq-section h2 {
+                font-size: 18px;
+            }
+            .contact-section p {
+                font-size: 1.5em;
+            }
+            .contact-button {
+                padding: 12px 25px;
+                font-size: 0.9em;
+            }
+            .sidebar-brand-section .sidebar-logo {
+                height: 100px;
+            }
+            .sidebar-brand-section .sidebar-menu-text {
+                font-size: 2.2rem;
+            }
+            .sidebar-menu ul li a {
+                font-size: 1.8rem;
+                padding: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-bodyBg text-textLight min-h-screen flex flex-col">
+
+    <header id="header">
+        <div class="brand"> <a href="./index.html"><img src="./img/logo.svg" alt="The Wall Logo"></a> </div>
+        <button id="menuButton" class="menu-button">
+            <img src="img/img-401.png" alt="Menu Icon" class="object-contain"> </button>
+    </header>
+
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <div id="sidebarMenu" class="sidebar-menu">
+        <div class="sidebar-header">
+    <h1 class="text-5xl font-bold mb-2 text-center sm:text-left">MENU</h1>
+
+        </div>
+        <div class="sidebar-brand-section">
+           </div>
+      
+    </div>
+
+    <main class="flex-grow">
+        <section class="faq-section">
+            <div class="max-w-3xl mx-auto">
+                <div class="faq-shadow">
+                    <img src="img/img-403.svg" alt="FAQ Background Shadow"> </div>
+
+                <h1 class="text-5xl font-bold mb-2 text-center sm:text-left">FAQ</h1>
+                <h2 class="text-xl font-normal mb-8 text-center sm:text-left text-textMuted">FOIRE AUX QUESTIONS</h2>
+                <p class="text-lg mb-12 text-center sm:text-left text-textMuted">Bienvenue dans notre FAQ ! Retrouvez ici des réponses rapides à vos questions fréquentes concernant nos salles d'escalade.</p>
+
+                <div class="faq-list-container">
+                    <div class='faq-item'>
+                        <div class="question-header">
+                            <span class='question'>Quels sont vos horaires d'ouverture ?</span>
+                            <span class='arrow'>
+                                <img src="img/img-402.png" alt="Dropdown Arrow"> </span>
+                        </div>
+                        <div class="answer">
+                            <p>Nos salles sont ouvertes du lundi au vendredi de 10h à 22h, et les samedis et dimanches de 9h à 20h.</p>
+                        </div>
+                    </div>
+                    <div class='faq-item'>
+                        <div class="question-header">
+                            <span class='question'>Quels sont vos tarifs ?</span>
+                            <span class='arrow'>
+                                <img src="img/img-402.png" alt="Dropdown Arrow">
+                            </span>
+                        </div>
+                        <div class="answer">
+                            <p>Vous pouvez consulter nos tarifs détaillés sur notre page "Tarifs" ou directement à l'accueil de la salle. Nous proposons des abonnements, des carnets de séances et des entrées à l'unité.</p>
+                        </div>
+                    </div>
+                    <div class='faq-item'>
+                        <div class="question-header">
+                            <span class='question'>Peut-on venir grimper sans expérience ?</span>
+                            <span class='arrow'>
+                                <img src="img/img-402.png" alt="Dropdown Arrow">
+                            </span>
+                        </div>
+                        <div class="answer">
+                            <p>Oui, absolument ! Nos salles sont conçues pour tous les niveaux. Nous proposons des zones d'initiation et des cours pour les débutants. Notre équipe est là pour vous guider.</p>
+                        </div>
+                    </div>
+                    <div class='faq-item'>
+                        <div class="question-header">
+                            <span class='question'>Faut-il réserver à l'avance ?</span>
+                            <span class='arrow'>
+                                <img src="img/img-402.png" alt="Dropdown Arrow">
+                            </span>
+                        </div>
+                        <div class="answer">
+                            <p>Pour les accès libres, la réservation n'est pas obligatoire mais recommandée pendant les heures de pointe. Pour les cours d'initiation ou les événements spéciaux, la réservation est fortement conseillée via notre site web.</p>
+                        </div>
+                    </div>
+                    <div class='faq-item'>
+                        <div class="question-header">
+                            <span class='question'>Faut-il venir avec son propre matériel ?</span>
+                            <span class='arrow'>
+                                <img src="img/img-402.png" alt="Dropdown Arrow">
+                            </span>
+                        </div>
+                        <div class="answer">
+                            <p>Non, vous n'êtes pas obligé. Nous proposons la location de chaussons d'escalade et de baudriers sur place. Vous pouvez venir avec votre matériel si vous en possédez.</p>
+                        </div>
+                    </div>
+                    <div class='faq-item'>
+                        <div class="question-header">
+                            <span class='question'>Disposez-vous de vestiaires et de douches ?</span>
+                            <span class='arrow'>
+                                <img src="img/img-402.png" alt="Dropdown Arrow">
+                            </span>
+                        </div>
+                        <div class="answer">
+                            <p>Oui, nos salles sont équipées de vestiaires séparés pour hommes et femmes, ainsi que de douches individuelles pour votre confort après votre séance.</p>
+                        </div>
+                    </div>
+                    <div class='faq-item'>
+                        <div class="question-header">
+                            <span class='question'>Avez-vous un espace bar ou restauration ?</span>
+                            <span class='arrow'>
+                                <img src="img/img-402.png" alt="Dropdown Arrow">
+                            </span>
+                        </div>
+                        <div class="answer">
+                            <p>Oui, chaque salle dispose d'un espace convivial avec un bar proposant des boissons rafraîchissantes et des snacks. Idéal pour se détendre après l'effort ou pour travailler.</p>
+                        </div>
+                    </div>
+                    <div class='faq-item'>
+                        <div class="question-header">
+                            <span class='question'>Où se situe votre salle ?</span>
+                            <span class='arrow'>
+                                <img src="img/img-402.png" alt="Dropdown Arrow">
+                            </span>
+                        </div>
+                        <div class="answer">
+                            <p>Notre salle principale est située au 123 Rue de l'Escalade, 75010 Paris. Nous avons également d'autres adresses à Lyon et Marseille. Retrouvez tous les détails sur notre page "Nos salles".</p>
+                        </div>
+                    </div>
+                    <div class='faq-item'>
+                        <div class="question-header">
+                            <span class='question'>Où peut-on se garer ?</span>
+                            <span class='arrow'>
+                                <img src="img/img-402.png" alt="Dropdown Arrow">
+                            </span>
+                        </div>
+                        <div class="answer">
+                            <p>Un parking gratuit est disponible juste devant la salle. De plus, plusieurs parkings publics payants se trouvent à proximité si le nôtre est complet.</p>
+                        </div>
+                    </div>
+                    <div class='faq-item'>
+                        <div class="question-header">
+                            <span class='question'>Peut-on organiser un événement (anniversaire, team-building, etc.) ?</span>
+                            <span class='arrow'>
+                                <img src="img/img-402.png" alt="Dropdown Arrow">
+                            </span>
+                        </div>
+                        <div class="answer">
+                            <p>Absolument ! Nous proposons des formules spéciales pour les anniversaires enfants et adultes, ainsi que des offres sur mesure pour les événements d'entreprise (team-building, séminaires). Contactez-nous pour plus d'informations.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-section text-center mt-16">
+                    <p class="text-xl mb-6 font-bold">VOTRE QUESTION NE FIGURE PAS DANS NOTRE FAQ ?</p>
+                    <button class="contact-button">Contactez-nous</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer" class="w-full">
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center mb-4 sm:mb-0">
+                <div class="footer-brand">
+                    <a href="./"> <img src="img/logo.svg" class="h-12" alt="The Wall Salle d'Escalade Footer Logo"> </a>
+                </div>
+                <div class="text-left ml-4"> <div class="social-media-follow">Follow Us</div>
+                    <ul class="social-links flex text-xl mt-2">
+                        <li><a href="#" class="mr-3"><i class="fab fa-facebook-f"></i></a></li> <li><a href="#" class="mr-3"><i class="fab fa-instagram"></i></a></li> <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-right mt-4 sm:mt-0"> <span class="text-gray-400 text-xs uppercase block mb-1">© 2025 the wall. TOUS DROITS RÉSERVÉS. ‎ ‎ ‎ ‎ ‎‎ ‎ ‎ ‎  Agence : Craftstudio - design drag&drop.eu</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            const menuButton = document.getElementById('menuButton');
+            const sidebarMenu = document.getElementById('sidebarMenu');
+            const sidebarCloseButton = document.getElementById('sidebarCloseButton');
+            const sidebarOverlay = document.getElementById('sidebarOverlay'); // Get the new overlay element
+
+            // Function to close the sidebar
+            function closeSidebar() {
+                sidebarMenu.classList.remove('open');
+                menuButton.classList.remove('hidden'); // Show menu button
+                sidebarOverlay.classList.remove('active-overlay'); // Hide overlay
+            }
+
+            // FAQ Accordion functionality
+            faqItems.forEach(item => {
+                const questionHeader = item.querySelector('.question-header');
+                questionHeader.addEventListener('click', () => {
+                    // Optional: Close other active items
+                    // faqItems.forEach(otherItem => {
+                    //     if (otherItem !== item) {
+                    //         otherItem.classList.remove('active');
+                    //     }
+                    // });
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Sidebar Menu functionality
+            if (menuButton) {
+                menuButton.addEventListener('click', () => {
+                    sidebarMenu.classList.add('open');
+                    menuButton.classList.add('hidden'); // Hide menu button
+                    sidebarOverlay.classList.add('active-overlay'); // Show overlay
+                });
+            }
+
+            // Close sidebar when 'X' button is clicked
+            if (sidebarCloseButton) {
+                sidebarCloseButton.addEventListener('click', () => {
+                    closeSidebar();
+                });
+            }
+
+            // Close sidebar when overlay is clicked (i.e., clicking outside the menu)
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', () => {
+                    closeSidebar();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded", // or "compressed" for minified CSS
+            "extensionName": ".css",
+            "savePath": "/css" // This is the key setting for the path
+        }
+    ],
+    // You can add other Live Sass Compiler settings here if needed
+    // "liveSassCompile.settings.generateMap": false, // To prevent .map file generation
+    // "liveSassCompile.settings.autoprefix": ["last 2 versions", "> 1%"] // For autoprefixing
+}

@@ -1,0 +1,53 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+:root {
+    --bs-primary: #00A6B8;
+    --bs-primary-rgb: 0, 166, 184;
+    --bs-primary-dark: #002A3F;
+    --bs-primary-light: #35BDFA;
+
+    --bs-primary-bg-subtle: rgba(var(--bs-primary-rgb), 0.3);
+    --bs-primary-border-subtle: rgba(var(--bs-primary-rgb), 0.6);
+
+    --bs-light: #FAF8F3;
+    --bs-light-rgb: 250, 248, 243;
+
+    --bs-info: #35BDFA;
+    --bs-info-rgb: 53, 189, 250;
+
+    --bs-dark: #041415;
+
+    --bs-body-color: #000000;
+
+    --bs-cyan: #35BDFA;
+    --bs-gold: #BE8226;
+    --bs-gold-light: #F2EEBA;
+    --bs-gold-dark: #A26C2C;
+
+    --bs-gray: #6c757d;
+    --bs-gray-200: #848484;
+    --bs-gray-600: #6E6E6E;
+
+
+    --bs-body-color: #fff;
+    --bs-body-color-rgb: 255,255,255;
+
+    // --bs-body-font-family: 'Roc Grotesk';
+    --bs-body-font-family: "roc-grotesk";
+    --bs-font-family-2: "roc-grotesk-wide";
+    --bs-heading-font-family: "ff-market-web";
+}
+
+$max-sm: "(max-width: 767px)";
+$max-md: "(max-width: 991px)";
+
+$min-md: "(min-width: 768px)";
+$min-lg: "(min-width: 992px)";
+$min-xl: "(min-width: 1200px)";
+$min-xxl: "(min-width: 1400px)";
+$min-xxxl: "(min-width: 1600px)";
+
+// @media #{$min-lg} {
+
+// }

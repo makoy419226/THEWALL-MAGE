@@ -1,0 +1,13 @@
+{
+  "name": "225thewall",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "sass scss/app.scss css/app.css --style compressed",
+    "dev": "sass scss/app.scss css/app.css -w --style compressed | browser-sync start --server --files css/*.css ./**/*.html"
+  }
+}

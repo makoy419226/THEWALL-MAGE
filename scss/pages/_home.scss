@@ -1,0 +1,52 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+.main-banner {
+	position: relative;
+	height: 1048px;
+
+	.swiper-component {
+        height: 100%;
+    }
+
+    .slide-content {
+        position: relative;
+   }
+}
+
+// News
+.article-item {
+    position: relative;
+    background: #EFEFEF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.32);
+
+    .item-wrapper {
+        padding: 98px 42px 0;
+    }
+
+    .article-img {
+        margin-bottom: 28px;
+    }
+
+    .content-wrapper {
+        margin-bottom: 40px;
+        padding: 0 8px;
+    }
+
+    .item-category {
+        font-size: 16px;
+        line-height: 1;
+        color: var(--bs-primary);
+        text-transform: uppercase;
+        margin-bottom: 26px;
+    }
+
+    .description {
+        color: var(--bs-gray-600);
+        padding: 0 12px;
+    }
+
+    .btn {
+        margin-left: auto;
+    }
+}

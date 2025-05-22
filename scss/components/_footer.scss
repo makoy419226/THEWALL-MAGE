@@ -1,0 +1,27 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site/application.
+// -----------------------------------------------------------------------------
+footer {
+	padding: 42px 0 24px;
+
+	.text-copyright {
+		font-size: 14px;
+	}
+}
+
+.social-media-follow {
+	font-size: 12px;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 6.72px;
+	padding: 0px 18px;
+}
+
+.social-links {
+	--bs-nav-link-color: #ffffff;
+    --bs-nav-link-hover-color: #ffffff;
+}
+
+.text-copyright {
+
+}

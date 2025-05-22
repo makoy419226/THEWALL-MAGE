@@ -1,0 +1,146 @@
+.text-underline {
+    text-decoration: underline;
+}
+
+.fw-thin {
+    font-weight: 100 !important;
+}
+
+.fw-light {
+    font-weight: 300 !important;
+}
+
+.fw-normal {
+    font-weight: 400 !important;
+}
+
+.fw-medium {
+    font-weight: 500 !important;
+}
+
+.fw-semibold {
+    font-weight: 600 !important;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+.fw-extrabold {
+    font-weight: 800 !important;
+}
+
+.fw-black {
+    font-weight: 900 !important;
+}
+
+.fs-italic {
+    font-style: italic;
+}
+
+.anchor-overlay {
+    @include inset(0);
+    position: absolute;
+    z-index: 3;
+}
+
+.z-index-1 {
+    z-index: 1;
+}
+
+.fs-14px {
+    font-size: 14px;
+}
+
+.opacity-95 { 
+    opacity: .95 !important; 
+}
+
+.text-opacity-95 { 
+   --bs-text-opacity: .95; 
+}
+
+.text-opacity-86 { 
+   --bs-text-opacity: .86; 
+}
+
+.text-spacing-10 {
+    letter-spacing: 10.85px;
+}
+
+.text-primary-dark {
+    color: var(--bs-primary-dark);
+}
+
+[class*=overlay-shade] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+}
+
+.bg-overlay-1 {
+    --bg-overlay-1: #092D31;
+    --bg-overlay-1-rgb: 9, 45, 49;
+    background-color: rgba(var(--bg-overlay-1-rgb), 0.31);
+}
+
+.bg-overlay-2 {
+    background: transparent linear-gradient(250deg, #17151500 0%, #000000 100%) 0% 0% no-repeat padding-box;
+}
+
+.text-gray {
+    color: var(--bs-gray) !important;
+}
+
+.text-gray-2 {
+    color: var(--bs-gray-200) !important;
+}
+
+.banner-text {
+    font-size: 6.35vw;
+    line-height: 1.26;
+}
+
+.heading-text-1 {
+    font-size: 8vw;
+    line-height: 1;
+
+    @media #{$min-lg} {
+        font-size: 8vw;
+    }
+
+    @media #{$min-xxxl} {
+        font-size: 8vw;
+    }
+}
+
+.heading-text-2 {
+    // inline-size: 100vw;
+    font-size: 6.28vw;
+    line-height: 1;
+    letter-spacing: 2.036vw;
+    text-transform: uppercase;
+
+    @media #{$min-lg} {
+        font-size: 6.28vw;
+    }
+
+    @media #{$min-xxxl} {
+        font-size: 6.2vw;
+    }
+}
+
+.col-px {
+    --bs-gutter-x: 1.5rem;
+    padding-right: calc(var(--bs-gutter-x)* .5);
+    padding-left: calc(var(--bs-gutter-x)* .5);
+}
+
+@media #{$min-lg} {
+    .col-lg-px {
+        --bs-gutter-x: 1.5rem;
+        padding-right: calc(var(--bs-gutter-x)* .5);
+        padding-left: calc(var(--bs-gutter-x)* .5);
+    }
+}
