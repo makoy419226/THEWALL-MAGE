@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="136.8" height="54.4" viewBox="0 0 171 68">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #be8226;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #041415;
+        font-size: 24px;
+        font-family: SegoeUI, Segoe UI;
+      }
+
+      .cls-4 {
+        clip-path: url(#clip-path);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_93" data-name="Rectangle 93" class="cls-1" width="23.309" height="40.301"/>
+    </clipPath>
+  </defs>
+  <g id="Group_689" data-name="Group 689" transform="translate(-416 -119)">
+    <g id="Group_691" data-name="Group 691">
+      <g id="Group_690" data-name="Group 690">
+        <rect id="Rectangle_152" data-name="Rectangle 152" class="cls-2" width="171" height="68" rx="34" transform="translate(416 119)"/>
+      </g>
+      <text id="Retour" class="cls-3" transform="matrix(0.985, -0.174, 0.174, 0.985, 524.513, 158.996)"><tspan x="-43.447" y="0">RETOUR</tspan></text>
+      <g id="Group_663" data-name="Group 663" transform="translate(475.44 141.345) rotate(90)">
+        <g id="Group_541" data-name="Group 541" class="cls-4" transform="translate(0 0)">
+          <path id="Path_4047" data-name="Path 4047" class="cls-1" d="M23.013,27.363a1.756,1.756,0,0,0-2.432-.483c-4.43,2.966-6.5,4.826-7.853,6.442-.042-4.123-.14-8.849-.235-13.46-.132-6.375-.268-12.965-.268-18.111a1.752,1.752,0,0,0-3.5,0c0,5.181.137,11.79.27,18.181.09,4.4.182,8.891.229,12.864a32.77,32.77,0,0,0-6.413-5.856A1.751,1.751,0,1,0,.7,29.734c5.376,4.07,6.176,5.593,7.279,7.7.226.433.463.885.74,1.373a2.51,2.51,0,0,0,2.212,1.49c.047,0,.1,0,.139,0a2.506,2.506,0,0,0,1.955-1.233c.318-.466.6-.9.862-1.312,1.414-2.206,2.435-3.8,8.648-7.957a1.754,1.754,0,0,0,.483-2.432" transform="translate(0 -0.001)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
